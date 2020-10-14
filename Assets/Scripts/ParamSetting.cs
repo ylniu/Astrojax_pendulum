@@ -17,6 +17,7 @@ public class ParamSetting : MonoBehaviour
     public InputField L0;
     public InputField G;
     public InputField ks;
+    public InputField dt;
     public InputField M0;
     public InputField M1;
     public InputField M2;
@@ -55,6 +56,7 @@ public class ParamSetting : MonoBehaviour
         L0.text      = "0.61";
         G.text       = "9.8";
         ks.text      = "280.0";
+        dt.text      = "0.0001";
         M0.text      = "0.03188";
         M1.text      = "0.03188";
         M2.text      = "0.03188";
@@ -116,6 +118,10 @@ public class ParamSetting : MonoBehaviour
             else if (key == "ks")
             {
                 ks.text = value;
+            }
+            else if (key == "dt")
+            {
+                dt.text = value;
             }
             else if (key == "M0")
             {
@@ -202,15 +208,14 @@ public class ParamSetting : MonoBehaviour
                 V2z.text = value;
             }
         }
-
     }
-
     void ParamSubmit()
     {
         string strDamping = Damping.text;
         string strL0      = L0.text;
         string strG       = G.text;
         string strks      = ks.text;
+        string strdt      = dt.text;
         string strM0      = M0.text;
         string strM1      = M1.text;
         string strM2      = M2.text;
@@ -236,6 +241,7 @@ public class ParamSetting : MonoBehaviour
         ballcontroller.ChangeSomething("l0" , strL0);
         ballcontroller.ChangeSomething("g"  , strG);
         ballcontroller.ChangeSomething("ks" , strks);
+        ballcontroller.ChangeSomething("dt" , strdt);
         ballcontroller.ChangeSomething("M0" , strM0);
         ballcontroller.ChangeSomething("M1" , strM1);
         ballcontroller.ChangeSomething("M2" , strM2);

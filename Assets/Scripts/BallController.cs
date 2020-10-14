@@ -111,13 +111,13 @@ public class BallController : MonoBehaviour
         Update_position();
         //---------------------------------------------------------------------
         //
-        FileStream fs = new FileStream("D:\\ak.txt", FileMode.Create);
+        //FileStream fs = new FileStream("D:\\ak.txt", FileMode.Create);
         //获得字节数组
-        float len = D[0, 1] + D[1, 2];
-        byte[] data = System.Text.Encoding.Default.GetBytes("len = "+len);
-        fs.Write(data, 0, data.Length);
-        byte[] data01 = System.Text.Encoding.Default.GetBytes("X1x = " + X[1].x + "\n");
-        fs.Write(data01, 0, data01.Length);
+        //float len = D[0, 1] + D[1, 2];
+        //byte[] data = System.Text.Encoding.Default.GetBytes("len = "+len);
+        //fs.Write(data, 0, data.Length);
+        //byte[] data01 = System.Text.Encoding.Default.GetBytes("X1x = " + X[1].x + "\n");
+        //fs.Write(data01, 0, data01.Length);
         //byte[] data = System.Text.Encoding.Default.GetBytes("X1y = " + X[1].y);
         //fs.Write(data, 0, data.Length);
         //byte[] data = System.Text.Encoding.Default.GetBytes("X1z = " + X[1].z);
@@ -141,8 +141,8 @@ public class BallController : MonoBehaviour
         //byte[] data = System.Text.Encoding.Default.GetBytes("V2z = " + V[2].z);
         //fs.Write(data, 0, data.Length);
         //清空缓冲区、关闭流
-        fs.Flush();
-        fs.Close();
+        //fs.Flush();
+        //fs.Close();
         //
         //---------------------------------------------------------------------
         // 更新图表
@@ -179,6 +179,10 @@ public class BallController : MonoBehaviour
         else if (key == "ks")
         {
             ks = float.Parse(value);
+        }
+        else if (key == "dt")
+        {
+            dt = float.Parse(value);
         }
         else if (key == "M0")
         {
@@ -302,7 +306,7 @@ public class BallController : MonoBehaviour
         //
         nball = 3;
         ndyn = 20;
-        dt = 0.00001f;
+        dt = 0.0001f;
         radius = 0.01f;
         cradius = radius / 5.0f;
         diameter = radius * 2.0f;
