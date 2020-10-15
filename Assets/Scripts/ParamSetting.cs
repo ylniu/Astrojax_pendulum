@@ -13,11 +13,13 @@ public class ParamSetting : MonoBehaviour
     public Button btnLoad;
 
     //-------------------------------------------------------------------------
+    public InputField RunType;
     public InputField Damping;
     public InputField L0;
     public InputField G;
     public InputField ks;
     public InputField dt;
+    public InputField driverF;
     public InputField M0;
     public InputField M1;
     public InputField M2;
@@ -52,11 +54,13 @@ public class ParamSetting : MonoBehaviour
     void OnReset()
     {
         // Damping factor
+        RunType.text = "0";
         Damping.text = "0.005";
         L0.text      = "0.61";
         G.text       = "9.8";
         ks.text      = "280.0";
         dt.text      = "0.0001";
+        driverF.text = "14.10";
         M0.text      = "0.03188";
         M1.text      = "0.03188";
         M2.text      = "0.03188";
@@ -91,11 +95,11 @@ public class ParamSetting : MonoBehaviour
         string[] fileText2Content = File.ReadAllLines(datafile);
         foreach (string str in fileText2Content)
         {
-            parseline(str);
+            Parseline(str);
         }
     }
 
-    void parseline(string line)
+    void Parseline(string line)
     {
         string[] tokens = line.Split('=');
         if (tokens.Length == 2)
@@ -103,7 +107,11 @@ public class ParamSetting : MonoBehaviour
             string key = tokens[0].Trim();
             string value = tokens[1].Trim();
 
-            if (key == "Damping")
+            if (key == "RunType")
+            {
+                RunType.text = value;
+            }
+            else if(key == "Damping")
             {
                 Damping.text = value;
             }
@@ -122,6 +130,10 @@ public class ParamSetting : MonoBehaviour
             else if (key == "dt")
             {
                 dt.text = value;
+            }
+            else if (key == "driverF")
+            {
+                driverF.text = value;
             }
             else if (key == "M0")
             {
@@ -211,11 +223,13 @@ public class ParamSetting : MonoBehaviour
     }
     void ParamSubmit()
     {
+        string strRunType = RunType.text;
         string strDamping = Damping.text;
         string strL0      = L0.text;
         string strG       = G.text;
         string strks      = ks.text;
         string strdt      = dt.text;
+        string strdriverF = driverF.text;
         string strM0      = M0.text;
         string strM1      = M1.text;
         string strM2      = M2.text;
@@ -237,11 +251,13 @@ public class ParamSetting : MonoBehaviour
         string strV2x     = V2x.text;
         string strV2y     = V2y.text;
         string strV2z     = V2z.text;
-        ballcontroller.ChangeSomething("dp" , strDamping);
-        ballcontroller.ChangeSomething("l0" , strL0);
+        ballcontroller.ChangeSomething("RunType" , strRunType);
+        ballcontroller.ChangeSomething("Damping", strDamping);
+        ballcontroller.ChangeSomething("L0" , strL0);
         ballcontroller.ChangeSomething("g"  , strG);
         ballcontroller.ChangeSomething("ks" , strks);
         ballcontroller.ChangeSomething("dt" , strdt);
+        ballcontroller.ChangeSomething("driverF", strdriverF);
         ballcontroller.ChangeSomething("M0" , strM0);
         ballcontroller.ChangeSomething("M1" , strM1);
         ballcontroller.ChangeSomething("M2" , strM2);

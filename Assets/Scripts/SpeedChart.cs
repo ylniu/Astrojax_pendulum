@@ -7,7 +7,7 @@ using XCharts;
 [RequireComponent(typeof(CoordinateChart))]
 public class SpeedChart : MonoBehaviour
 {
-    public int maxCacheDataNumber = 1000;
+    public int maxCacheDataNumber = 200;
     public float initDataTime = 20;
 
     private CoordinateChart chart;

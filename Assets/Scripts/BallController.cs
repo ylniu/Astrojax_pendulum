@@ -11,9 +11,9 @@ public class BallController : MonoBehaviour
 {
     // 图表组件
     public SpeedChart chart;
-    
     private int nball;
     private int ndyn;
+    private int RunType;
     private float dt;
     private float k;
     private float damping;
@@ -44,12 +44,14 @@ public class BallController : MonoBehaviour
     private Vector3 Fs1;
     private Vector3 Ft2;
     private Vector3 Ft1;
+    private Vector3 ZOrigin;
     private Vector3[,] F_pair;
     private Vector3[] a;
     private Vector3 e0;
     private Vector3 e1;
     private Vector3 e;
     private Vector3 dX;
+    private Vector3 dX1;
     private Vector3 origin;
     private Vector3 CX0;
     private Vector3 CX1;
@@ -62,6 +64,7 @@ public class BallController : MonoBehaviour
     private List<MoveString> stringscripts;
     public GameObject Ballpref;
     public GameObject Stringpref;
+    private string path;
 
     // Start is called before the first frame update
     void Start()
@@ -88,17 +91,26 @@ public class BallController : MonoBehaviour
 
         Initiate_xv();
         Get_xv();
+        //Distance();
         UpdatePos();
     }
 
     public void Run()
     {
+        string cx = Convert.ToString(ballscripts[0].x);
+        string appendText = "This is extra text 2  " + cx + Environment.NewLine;
+        File.AppendAllText(path, appendText);
         Get_xv();
+        cx = Convert.ToString(ballscripts[0].x);
+        appendText = "This is extra text 3  " + cx + Environment.NewLine;
+        File.AppendAllText(path, appendText);
         Distance();
+        cx = Convert.ToString(ballscripts[0].x);
+        appendText = "This is extra text 4  " + cx + Environment.NewLine;
+        File.AppendAllText(path, appendText);
         //L0 = L;
         Get_bond();
 
-        
         InvokeRepeating("UpdatePos", 0f, 0.001f);
     }
 
@@ -164,11 +176,15 @@ public class BallController : MonoBehaviour
     public void ChangeSomething(string key, string value)
     {
         origin = new Vector3(0.0f, 0.0f, 0.0f);
-        if (key == "dp")
+        if (key=="RunType")
+        {
+            RunType=int.Parse(value);
+        }
+        else if(key == "Damping")
         {
             damping = float.Parse(value);
         }
-        else if (key == "l0")
+        else if (key == "L0")
         {
             L0 = float.Parse(value);
         }
@@ -183,6 +199,10 @@ public class BallController : MonoBehaviour
         else if (key == "dt")
         {
             dt = float.Parse(value);
+        }
+        else if (key == "driverF")
+        {
+            driver_f = float.Parse(value);
         }
         else if (key == "M0")
         {
@@ -268,10 +288,14 @@ public class BallController : MonoBehaviour
         {
             ballscripts[2].v.z = float.Parse(value);
         }
+        
         Get_xv();
         Distance();
         Get_bond();
         Update_position();
+        string cx = Convert.ToString(ballscripts[0].x);
+        string appendText = "This is extra text 1  " + cx + Environment.NewLine;
+        File.AppendAllText(path, appendText);
         //if (strDamping != "") damping = float.Parse(strDamping);
         //if (strL0      != "") L0      = float.Parse(strL0     );
     }
@@ -304,18 +328,19 @@ public class BallController : MonoBehaviour
         //----------------------------------------------------------------------
         // Initiation
         //
-        nball = 3;
-        ndyn = 20;
-        dt = 0.0001f;
-        radius = 0.01f;
-        cradius = radius / 5.0f;
-        diameter = radius * 2.0f;
-        cdiameter = cradius * 2.0f;
-        damping = 0.005f;
+        nball      = 3;
+        ndyn       = 20;
+        RunType    = 0;
+        dt         = 0.0001f;
+        radius     = 0.01f;
+        cradius    = radius / 5.0f;
+        diameter   = radius * 2.0f;
+        cdiameter  = cradius * 2.0f;
+        damping    = 0.005f;
         //driver_f = 0.1f;
-        driver_f = 1.0f;
+        driver_f   = 1.0f;
         //driver_r = 2.0f;
-        driver_p = 0.0f;
+        driver_p   = 0.0f;
         //amp = 0.1f;
         t = 0.0f;
         //damping = 0.000f;
@@ -326,34 +351,52 @@ public class BallController : MonoBehaviour
         m = 31.88f;
         m = m / 1000.0f;
         g = 9.8f;
-        // g = g * 0.01f;
         force_radius = 2.0f * radius;
         L0 = 0.61f;
         //
-        balls = new List<GameObject>();
-        ballscripts = new List<MoveController>();
-        strings = new List<GameObject>();
+        balls         = new List<GameObject>();
+        ballscripts   = new List<MoveController>();
+        strings       = new List<GameObject>();
         stringscripts = new List<MoveString>();
 
-        e = new Vector3();
-        origin = new Vector3();
-        dX = new Vector3();
-        e0 = new Vector3();
-        e1 = new Vector3();
-        CX0 = new Vector3();
-        CX1 = new Vector3();
-        Fs2 = new Vector3();
-        Fs1 = new Vector3();
-        Ft2 = new Vector3();
-        Ft1 = new Vector3();
+        e       = new Vector3();
+        origin  = new Vector3();
+        dX      = new Vector3();
+        dX1     = new Vector3();
+        e0      = new Vector3();
+        e1      = new Vector3();
+        CX0     = new Vector3();
+        CX1     = new Vector3();
+        Fs2     = new Vector3();
+        Fs1     = new Vector3();
+        Ft2     = new Vector3();
+        Ft1     = new Vector3();
+        ZOrigin = new Vector3();
         X = new Vector3[nball];
         V = new Vector3[nball];
         a = new Vector3[nball];
         F = new Vector3[nball];
         F_pair = new Vector3[nball, nball];
-        D = new float[nball, nball];
-        Fr = new float[nball, nball];
-        mass = new float[nball];
+        D      = new float  [nball, nball];
+        Fr     = new float  [nball, nball];
+        mass   = new float  [nball];
+
+
+        path = Application.dataPath + "/log.txt";
+
+        // This text is added only once to the file.
+        if (!File.Exists(path))
+        {
+            // Create a file to write to.
+            string createText = "Hello and Welcome" + Environment.NewLine;
+            File.WriteAllText(path, createText);
+        }
+
+        // This text is always added, making the file longer over time
+        // if it is not deleted.
+        string appendText = "This is extra text" + Environment.NewLine;
+        File.AppendAllText(path, appendText);
+
     }
     void Initiate_xv()
     {
@@ -496,7 +539,7 @@ public class BallController : MonoBehaviour
                 }
             }
             //------------------------------------------------------------------
-            F[i].y = F[i].y - m * g;
+            F[i].y = F[i].y - mass[i] * g;
             //------------------------------------------------------------------
         }
         //----------------------------------------------------------------------
@@ -530,27 +573,35 @@ public class BallController : MonoBehaviour
             for (int i = 0; i < N; i++)
             {
                 t = t + dt;
-                if (i == -1)
+                //string cx = Convert.ToString(X[0].x);
+                //string appendText = "This is extra text "+cx + Environment.NewLine;
+                //File.AppendAllText(path, appendText);
+                if (i == 0)
                 {
-                    if (driver_f > 0.0f) {
-                        //driver_a = driver_f * dt;
+                    if (RunType==1 && driver_f > 0.0f) {
+                        // driver_a = driver_f * dt;
                         driver_a = driver_f * t;
-                        dX = new Vector3(0.0f, 0.0f, 0.0f);
+                        
+                        dX        = new Vector3(0.0f, 0.0f, 0.0f);
+                        dX1       = new Vector3(0.0f, 0.0f, 0.0f);
+                        ZOrigin   = new Vector3(0.0f, X[0].y, 0.0f);
                         //----------------------------------------------------------
                         // move around y axis
                         //
-                        // dX = X[i] - origin;
-                        // dX.x = (float)Math.Cos(driver_a) * dX.x - (float)Math.Sin(driver_a) * dX.z;
-                        // dX.z = (float)Math.Sin(driver_a) * dX.x + (float)Math.Cos(driver_a) * dX.z;
+                        dX = X[i] - ZOrigin;
+                        
+                        dX1.x = (float)Math.Cos(driver_a) * dX.x - (float)Math.Sin(driver_a) * dX.z;
+                        dX1.z = (float)Math.Sin(driver_a) * dX.x + (float)Math.Cos(driver_a) * dX.z;
+                        dX1.y = dX.y;
+                        
                         //----------------------------------------------------------
                         // move along y axis
                         //
                         // dX.y = amp * (float)Math.Cos(driver_a + driver_p);
-                        dX.y = amp * (float)Math.Cos(driver_a);
-                        UnityEngine.Debug.Log(driver_f);
-                        UnityEngine.Debug.Log(dt);
+                        // dX.y = amp * (float)Math.Cos(driver_a);
                         //----------------------------------------------------------
-                        // X[i] = origin + dX;
+                        X[i] = ZOrigin + dX1;
+                        
                     }
                 }
                 else
@@ -577,9 +628,5 @@ public class BallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
     }
-
-   
 }
