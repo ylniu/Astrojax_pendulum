@@ -28,12 +28,12 @@ public class UIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnStart()
     {
-        ballcontroller.Run();
+        ballcontroller.RunDynmics();
     }
 
     void TopView()

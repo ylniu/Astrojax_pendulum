@@ -56,37 +56,38 @@ public class ParamSetting : MonoBehaviour
         // Damping factor
         RunType.text = "0";
         Damping.text = "0.005";
-        L0.text      = "0.61";
-        G.text       = "9.8";
-        ks.text      = "280.0";
-        dt.text      = "0.0001";
+        L0.text = "0.61";
+        G.text = "9.8";
+        ks.text = "280.0";
+        dt.text = "0.0001";
         driverF.text = "14.10";
-        M0.text      = "0.03188";
-        M1.text      = "0.03188";
-        M2.text      = "0.03188";
-        X0x.text     = "0.0";
-        X0y.text     = "0.0";
-        X0z.text     = "0.0";
-        V0x.text     = "0.0";
-        V0y.text     = "0.0";
-        V0z.text     = "0.0";
-        X1x.text     = "0.0";
-        X1y.text     = "-0.3";
-        X1z.text     = "0.0";
-        V1x.text     = "-1.0";
-        V1y.text     = "-1.0";
-        V1z.text     = "0.0";
-        X2x.text     = "0.0";
-        X2y.text     = "-0.61";
-        X2z.text     = "0.0";
-        V2x.text     = "3.0";
-        V2y.text     = "0.0";
-        V2z.text     = "0.0";
+        M0.text = "0.03188";
+        M1.text = "0.03188";
+        M2.text = "0.03188";
+        X0x.text = "0.0";
+        X0y.text = "0.0";
+        X0z.text = "0.0";
+        V0x.text = "0.0";
+        V0y.text = "0.0";
+        V0z.text = "0.0";
+        X1x.text = "0.0";
+        X1y.text = "-0.3";
+        X1z.text = "0.0";
+        V1x.text = "-1.0";
+        V1y.text = "-1.0";
+        V1z.text = "0.0";
+        X2x.text = "0.0";
+        X2y.text = "-0.61";
+        X2z.text = "0.0";
+        V2x.text = "3.0";
+        V2y.text = "0.0";
+        V2z.text = "0.0";
     }
 
     private void OnLoad()
     {
-        string datafile = Application.dataPath + "/files/data.txt";
+        // string datafile = Application.dataPath + "/files/data.txt";
+        string datafile = "D:/Share/Data/GitHub/Astrojax_pendulum/Assets/files/data.txt";
         if (!File.Exists(datafile))
         {
             Debug.Log("find not found");
@@ -111,7 +112,7 @@ public class ParamSetting : MonoBehaviour
             {
                 RunType.text = value;
             }
-            else if(key == "Damping")
+            else if (key == "Damping")
             {
                 Damping.text = value;
             }
@@ -221,46 +222,58 @@ public class ParamSetting : MonoBehaviour
             }
         }
     }
+    public string GetParam(string key)
+    {
+        if (key == "RunType")
+        {
+            return RunType.text;
+        }
+        else
+        {
+            return "Null";
+        }
+    }
     void ParamSubmit()
     {
         string strRunType = RunType.text;
         string strDamping = Damping.text;
-        string strL0      = L0.text;
-        string strG       = G.text;
-        string strks      = ks.text;
-        string strdt      = dt.text;
+        string strL0 = L0.text;
+        string strG = G.text;
+        string strks = ks.text;
+        string strdt = dt.text;
         string strdriverF = driverF.text;
-        string strM0      = M0.text;
-        string strM1      = M1.text;
-        string strM2      = M2.text;
-        string strX0x     = X0x.text;
-        string strX0y     = X0y.text;
-        string strX0z     = X0z.text;
-        string strV0x     = V0x.text;
-        string strV0y     = V0y.text;
-        string strV0z     = V0z.text;
-        string strX1x     = X1x.text;
-        string strX1y     = X1y.text;
-        string strX1z     = X1z.text;
-        string strV1x     = V1x.text;
-        string strV1y     = V1y.text;
-        string strV1z     = V1z.text;
-        string strX2x     = X2x.text;
-        string strX2y     = X2y.text;
-        string strX2z     = X2z.text;
-        string strV2x     = V2x.text;
-        string strV2y     = V2y.text;
-        string strV2z     = V2z.text;
-        ballcontroller.ChangeSomething("RunType" , strRunType);
+        string strM0 = M0.text;
+        string strM1 = M1.text;
+        string strM2 = M2.text;
+        string strX0x = X0x.text;
+        string strX0y = X0y.text;
+        string strX0z = X0z.text;
+        string strV0x = V0x.text;
+        string strV0y = V0y.text;
+        string strV0z = V0z.text;
+        string strX1x = X1x.text;
+        string strX1y = X1y.text;
+        string strX1z = X1z.text;
+        string strV1x = V1x.text;
+        string strV1y = V1y.text;
+        string strV1z = V1z.text;
+        string strX2x = X2x.text;
+        string strX2y = X2y.text;
+        string strX2z = X2z.text;
+        string strV2x = V2x.text;
+        string strV2y = V2y.text;
+        string strV2z = V2z.text;
+        //ballcontroller.ChangeSomething1();
+        ballcontroller.ChangeSomething("RunType", strRunType);
         ballcontroller.ChangeSomething("Damping", strDamping);
-        ballcontroller.ChangeSomething("L0" , strL0);
-        ballcontroller.ChangeSomething("g"  , strG);
-        ballcontroller.ChangeSomething("ks" , strks);
-        ballcontroller.ChangeSomething("dt" , strdt);
+        ballcontroller.ChangeSomething("L0", strL0);
+        ballcontroller.ChangeSomething("g", strG);
+        ballcontroller.ChangeSomething("ks", strks);
+        ballcontroller.ChangeSomething("dt", strdt);
         ballcontroller.ChangeSomething("driverF", strdriverF);
-        ballcontroller.ChangeSomething("M0" , strM0);
-        ballcontroller.ChangeSomething("M1" , strM1);
-        ballcontroller.ChangeSomething("M2" , strM2);
+        ballcontroller.ChangeSomething("M0", strM0);
+        ballcontroller.ChangeSomething("M1", strM1);
+        ballcontroller.ChangeSomething("M2", strM2);
         ballcontroller.ChangeSomething("X0x", strX0x);
         ballcontroller.ChangeSomething("X0y", strX0y);
         ballcontroller.ChangeSomething("X0z", strX0z);
@@ -279,6 +292,7 @@ public class ParamSetting : MonoBehaviour
         ballcontroller.ChangeSomething("V2x", strV2x);
         ballcontroller.ChangeSomething("V2y", strV2y);
         ballcontroller.ChangeSomething("V2z", strV2z);
+        ballcontroller.UpdataParams();
     }
     // Update is called once per frame
     void Update()

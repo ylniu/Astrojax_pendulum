@@ -27,7 +27,6 @@ public class SpeedChart : MonoBehaviour
         timeNow = DateTime.Now;
         timeNow = timeNow.AddSeconds(-maxCacheDataNumber);
     }
-
     public void AddData(string time, float value)
     {
         chart.AddXAxisData(time);

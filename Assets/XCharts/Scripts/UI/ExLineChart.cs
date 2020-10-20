@@ -97,7 +97,7 @@ namespace XCharts
                         {
                             pX = startX + (xcount - i) * scaleWid;
                         }
-                        
+
                         float pY = seriesCurrHig[i] + coordinateY + m_Coordinate.tickness;
                         float dataHig = (value - minValue) / (maxValue - minValue) * coordinateHig;
                         np = new Vector3(pX, pY + dataHig);

@@ -30,7 +30,7 @@ public class Demo_Dynamic : MonoBehaviour
 
     void Update()
     {
-        if (initCount< maxCacheDataNumber)
+        if (initCount < maxCacheDataNumber)
         {
             int count = (int)(maxCacheDataNumber / initDataTime * Time.deltaTime);
             for (int i = 0; i < count; i++)
