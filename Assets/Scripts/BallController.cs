@@ -97,8 +97,8 @@ public class BallController : MonoBehaviour
         energy_old = 0.0f;
         power_diffuse = 0.0f;
         power_input = 0.0f;
-    //driver_f    = 0.1f;
-    driver_f = 1.0f;
+        //driver_f    = 0.1f;
+        driver_f = 1.0f;
         //driver_r    = 2.0f;
         driver_p = 0.0f;
         //amp         = 0.1f;
