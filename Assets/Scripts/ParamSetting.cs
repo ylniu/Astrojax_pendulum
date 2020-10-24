@@ -100,6 +100,21 @@ public class ParamSetting : MonoBehaviour
         }
     }
 
+    public void ParseFile(string filepath)
+    {
+        if (!File.Exists(filepath))
+        {
+            Debug.Log("find not found");
+            return;
+        }
+        Debug.Log("parse file " + filepath);
+        string[] fileText2Content = File.ReadAllLines(filepath);
+        foreach (string str in fileText2Content)
+        {
+            Parseline(str);
+        }
+    }
+
     void Parseline(string line)
     {
         string[] tokens = line.Split('=');

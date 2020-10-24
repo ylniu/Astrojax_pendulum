@@ -387,7 +387,7 @@ public class BallController : MonoBehaviour
     public void ChangeY(float value)
     {
         ballscripts[0].x.y = value * 0.1f;
-        // X[0].y = value * 0.1f;
+        X[0].y = value * 0.1f;
     }
     //-------------------------------------------------------------------------
     public void ChangeXZ(float xratio, float yratio)
@@ -396,10 +396,10 @@ public class BallController : MonoBehaviour
         float z0 = -0.2f;
         float wid = 0.4f;
         float hei = 0.4f;
-        //ballscripts[0].x.x = x0 + wid * xratio;
-        //ballscripts[0].x.z = z0 + hei * yratio;
-        //X[0].x = x0 + wid * xratio;
-        //X[0].z = z0 + hei * yratio;
+        ballscripts[0].x.x = x0 + wid * xratio;
+        ballscripts[0].x.z = z0 + hei * yratio;
+        X[0].x = x0 + wid * xratio;
+        X[0].z = z0 + hei * yratio;
     }
     //-------------------------------------------------------------------------
     public void Jump(Vector3 pos)
@@ -706,7 +706,6 @@ public class BallController : MonoBehaviour
         ddx[2] = X[2] - X_old[2];
         float pw1 = damping / dt * (V[1].x * ddx[1].x + V[1].x * ddx[1].y + V[1].z * ddx[1].z);
         float pw2 = damping / dt * (V[2].x * ddx[2].x + V[2].x * ddx[2].y + V[2].z * ddx[2].z);
-        Debug.Log(ddx[1]);
         power_diffuse = pw1 + pw2;
     }
     // Update is called once per frame
