@@ -20,7 +20,6 @@ public class MenuManager : MonoBehaviour
         btnSetting.onClick.AddListener(ShowSettingPanel);
         btnShowChart.onClick.AddListener(ShowChartsPanel);
     }
-
     void ShowSettingPanel()
     {
         //----------------------------------------------------------------------

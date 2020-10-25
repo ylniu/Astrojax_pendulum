@@ -74,27 +74,44 @@ public class CameraController : MonoBehaviour
             //    player.transform.up,
             //    angle);
 
-            if (Input.GetMouseButton(workingButton))
-            {
-                if (Input.GetMouseButtonDown(workingButton))
-                {
-                    _lastMousePos = Input.mousePosition;
-                }
-                _saveMousePos.x += (Input.mousePosition.x - _lastMousePos.x) * axisXSpeed;
-                _saveMousePos.y -= (Input.mousePosition.y - _lastMousePos.y) * axisYSpeed;
-                _lastMousePos = Input.mousePosition;
-                _saveMousePos.y = Mathf.Clamp(_saveMousePos.y, minYLimit, maxYLimit);
-            }
-            _smooth = Vector3.SmoothDamp(_smooth, _saveMousePos, ref _velocity, smoothTime, smoothDampMaxSpeed, smoothDampDeltaTime);
-            transform.rotation = Quaternion.Euler(_smooth.y, _smooth.x, 0);
-            if (target != null)
-            {
-                distance -= Input.GetAxis("Mouse ScrollWheel") * wheelSpeed;
-                // distance = Mathf.Clamp(distance, minDistance, maxDistance);
-                _smoothDistance = Mathf.SmoothDamp(_smoothDistance, distance, ref _velocityDistance, smoothTime, smoothDampMaxSpeed, smoothDampDeltaTime);
-                //transform.position = transform.rotation * new Vector3(0, 0, -60) + target.position;
-                // transform.position = transform.rotation * new Vector3(0, 0, -_smoothDistance) + target.position;
-            }
+
+
+
+
+
+
+
+
+
+            //----------------------------------------------------------------------------
+            //if (Input.GetMouseButton(workingButton))
+            //{
+            //    if (Input.GetMouseButtonDown(workingButton))
+            //    {
+            //        _lastMousePos = Input.mousePosition;
+            //    }
+            //    _saveMousePos.x += (Input.mousePosition.x - _lastMousePos.x) * axisXSpeed;
+            //    _saveMousePos.y -= (Input.mousePosition.y - _lastMousePos.y) * axisYSpeed;
+            //    _lastMousePos = Input.mousePosition;
+            //    _saveMousePos.y = Mathf.Clamp(_saveMousePos.y, minYLimit, maxYLimit);
+            //}
+            //_smooth = Vector3.SmoothDamp(_smooth, _saveMousePos, ref _velocity, smoothTime, smoothDampMaxSpeed, smoothDampDeltaTime);
+            //transform.rotation = Quaternion.Euler(_smooth.y, _smooth.x, 0);
+            //if (target != null)
+            //{
+            //    distance -= Input.GetAxis("Mouse ScrollWheel") * wheelSpeed;
+            //    // distance = Mathf.Clamp(distance, minDistance, maxDistance);
+            //    _smoothDistance = Mathf.SmoothDamp(_smoothDistance, distance, ref _velocityDistance, smoothTime, smoothDampMaxSpeed, smoothDampDeltaTime);
+            //    //transform.position = transform.rotation * new Vector3(0, 0, -60) + target.position;
+            //    // transform.position = transform.rotation * new Vector3(0, 0, -_smoothDistance) + target.position;
+            //}
+            //----------------------------------------------------------------------------
+
+
+
+
+
+
             //if (Input.GetAxis("Mouse ScrollWheel") != 0) {
             //    distance -= Input.GetAxis("Mouse ScrollWheel") * wheelSpeed;
             //    distance = Mathf.Clamp(distance, minDistance, maxDistance);

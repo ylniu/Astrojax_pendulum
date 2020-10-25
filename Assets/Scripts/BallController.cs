@@ -187,21 +187,32 @@ public class BallController : MonoBehaviour
             stringscripts.Add(stringscript);
         }
 
-        //Initiate_xv();
-        //Get_xv();
-        //Distance();
-        //Get_bond();
-        //Update_position();
+        Initiate_xv();
+        Get_xv();
+        for (int i = 0;  i < nball; ++i)
+        {
+            balls[i].transform.position = ballscripts[i].x;
+        }
+        Distance();
+        Get_bond();
+
     }
     //--------------------------------------------------------------------------
     public void RunDynmics()
     {
         //Get_xv();
-        Distance();
-        Get_bond();
+        //Distance();
+        //Get_bond();
         InvokeRepeating("UpdatePos", 0f, 0.001f);
     }
-
+    //--------------------------------------------------------------------------
+    public void StopDynmics()
+    {
+        //Get_xv();
+        //Distance();
+        //Get_bond();
+        CancelInvoke("UpdatePos");
+    }
     void UpdatePos()
     {
         // Get_xv();

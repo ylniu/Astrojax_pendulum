@@ -8,18 +8,22 @@ using UnityEngine.UI;
 public class ParamSetting : MonoBehaviour
 {
     public BallController ballcontroller;
+    private ScanR2 scanR2 = new ScanR2();
     public Button btnSubmit;
     public Button btnReset;
     public Button btnLoad;
+    public Button btnScanR2;
 
     //-------------------------------------------------------------------------
     public InputField RunType;
     public InputField Damping;
     public InputField L0;
+    public InputField R2;
     public InputField G;
     public InputField ks;
     public InputField dt;
     public InputField driverF;
+    public InputField ChooseRoot;
     public InputField M0;
     public InputField M1;
     public InputField M2;
@@ -48,6 +52,7 @@ public class ParamSetting : MonoBehaviour
         btnSubmit.onClick.AddListener(ParamSubmit);
         btnReset.onClick.AddListener(OnReset);
         btnLoad.onClick.AddListener(OnLoad);
+        btnScanR2.onClick.AddListener(OnScanR2);
         OnReset();
     }
 
@@ -57,10 +62,12 @@ public class ParamSetting : MonoBehaviour
         RunType.text = "0";
         Damping.text = "0.005";
         L0.text = "0.61";
+        R2.text = "0.14335";
         G.text = "9.8";
         ks.text = "280.0";
-        dt.text = "0.0001";
+        dt.text = "0.00001";
         driverF.text = "14.10";
+        ChooseRoot.text = "1";
         M0.text = "0.03188";
         M1.text = "0.03188";
         M2.text = "0.03188";
@@ -84,20 +91,67 @@ public class ParamSetting : MonoBehaviour
         V2z.text = "0.0";
     }
 
+    private void OnScanR2()
+    {
+        int in_CRoot = int.Parse(ChooseRoot.text);
+        double in_r2    = double.Parse(R2.text);
+        double in_eta   = double.Parse(Damping.text);
+        double in_M1    = double.Parse(M1.text);
+        double in_M2    = double.Parse(M2.text);
+        double in_w0    = double.Parse(driverF.text);
+        double in_g     = double.Parse(G.text);
+        double out_L0   = double.Parse(L0.text);
+        double in_ks    = double.Parse(ks.text);
+
+        double[] X0 = new double[3];
+        double[] X1 = new double[3];
+        double[] X2 = new double[3];
+        double[] V0 = new double[3];
+        double[] V1 = new double[3];
+        double[] V2 = new double[3];
+
+        scanR2.Calc(in_CRoot, in_r2, in_eta, in_M1, in_M2, in_w0, in_g, in_ks,
+            ref out_L0, ref X0,ref X1, ref X2, ref V0, ref V1, ref V2);
+
+        // 返回值写到输入框
+        // X0x.text = x0.x + "";
+        X0x.text = X0[0].ToString("f6");
+        X0y.text = X0[1].ToString("f6");
+        X0z.text = X0[2].ToString("f6");
+        X1x.text = X1[0].ToString("f6");
+        X1y.text = X1[1].ToString("f6");
+        X1z.text = X1[2].ToString("f6");
+        X2x.text = X2[0].ToString("f6");
+        X2y.text = X2[1].ToString("f6");
+        X2z.text = X2[2].ToString("f6");
+        V0x.text = V0[0].ToString("f6");
+        V0y.text = V0[1].ToString("f6");
+        V0z.text = V0[2].ToString("f6");
+        V1x.text = V1[0].ToString("f6");
+        V1y.text = V1[1].ToString("f6");
+        V1z.text = V1[2].ToString("f6");
+        V2x.text = V2[0].ToString("f6");
+        V2y.text = V2[1].ToString("f6");
+        V2z.text = V2[2].ToString("f6");
+        L0.text  = out_L0.ToString("f6");
+    }
     private void OnLoad()
     {
         // string datafile = Application.dataPath + "/files/data.txt";
-        string datafile = "D:/Share/Data/GitHub/Astrojax_pendulum/Assets/files/data.txt";
-        if (!File.Exists(datafile))
-        {
-            Debug.Log("find not found");
-            return;
-        }
-        string[] fileText2Content = File.ReadAllLines(datafile);
-        foreach (string str in fileText2Content)
-        {
-            Parseline(str);
-        }
+
+
+        //string datafile = "D:/Share/Data/GitHub/Astrojax_pendulum/Assets/files/data.txt";
+        //if (!File.Exists(datafile))
+        //{
+        //    Debug.Log("find not found");
+        //    return;
+        //}
+        //string[] fileText2Content = File.ReadAllLines(datafile);
+        //foreach (string str in fileText2Content)
+        //{
+        //    Parseline(str);
+        //}
+        OnReset();
     }
 
     public void ParseFile(string filepath)
@@ -122,7 +176,7 @@ public class ParamSetting : MonoBehaviour
         {
             string key = tokens[0].Trim();
             string value = tokens[1].Trim();
-
+             
             if (key == "RunType")
             {
                 RunType.text = value;
@@ -134,6 +188,10 @@ public class ParamSetting : MonoBehaviour
             else if (key == "L0")
             {
                 L0.text = value;
+            }
+            else if (key == "R2")
+            {
+                R2.text = value;
             }
             else if (key == "g")
             {
@@ -150,6 +208,10 @@ public class ParamSetting : MonoBehaviour
             else if (key == "driverF")
             {
                 driverF.text = value;
+            }
+            else if (key == "ChooseRoot")
+            {
+                ChooseRoot.text = value;
             }
             else if (key == "M0")
             {

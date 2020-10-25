@@ -51,6 +51,7 @@ public class ImageDrap : MonoBehaviour, IDragHandler, IPointerDownHandler
         {
             pos.x += 1;
         }
+       
 
         if (InBoundingBox(pos))
         {
