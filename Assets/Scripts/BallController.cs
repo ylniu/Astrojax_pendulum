@@ -82,7 +82,7 @@ public class BallController : MonoBehaviour
         //----------------------------------------------------------------------
         // Initiation
         //
-        IsDebug = 1;
+        IsDebug = 0;
         start_record = 0;
         nball = 3;
         ndyn = 20;

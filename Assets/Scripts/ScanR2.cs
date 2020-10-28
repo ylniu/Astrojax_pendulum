@@ -131,7 +131,7 @@ public class ScanR2 : MonoBehaviour
         //----------------------------------------------------------------------
         dL = LL / nL;
         //======================================================================
-        IsDebug = 1;
+        IsDebug = 0;
         if (IsDebug == 1)
         {
             path = Application.dataPath + "/Debug_ScanR2.txt";
